@@ -19,9 +19,10 @@ for boleto in listaboletos:
         if letra == "L":
             maxC = int((minC + maxC) / 2)
     ids.append((maxF * 8) + maxC)
+
+
 ids = sorted(ids, reverse=True)
 print("El ID mas alto es: ", ids[0])
-print(ids)
 for i in range(len(ids) - 1):
     if (ids[i] - ids[i + 1]) > 1:
         print("El ID de mi asiento es: ", int((ids[i] + ids[i + 1]) / 2))
