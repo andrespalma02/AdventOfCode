@@ -1,4 +1,3 @@
-
 import sys
 from copy import deepcopy
 
@@ -45,7 +44,8 @@ def add_fullpic(tile, newline=False):
         for r in range(len(tile)):
             fullpic[r + R] += tile[r]
 
-f=open("input20.txt","r")
+
+f = open("input20.txt", "r")
 tiles_raw = f.read().strip().split("\n\n")
 
 tiles = {}
@@ -108,7 +108,7 @@ while not len(gridmap) == len(tiles):
                 break
             tile = rotate(tile)
         if not found:
-             pass
+            pass
         gridmap[(r, c)] = idn
         tiles[idn]["grid"] = tile
         add_fullpic(tile, newline=True)
@@ -143,8 +143,8 @@ while not len(gridmap) == len(tiles):
 
 G = []
 for i in range(len(fullpic) // 10):
-    G.extend(fullpic[(10 * i) + 1 : (10 * i) + 9])
-G = ["".join([r[(10 * c) + 1 : (10 * c) + 9] for c in range(len(r) // 10)]) for r in G]
+    G.extend(fullpic[(10 * i) + 1: (10 * i) + 9])
+G = ["".join([r[(10 * c) + 1: (10 * c) + 9] for c in range(len(r) // 10)]) for r in G]
 
 monster = [(0, 1), (1, 2), (4, 2), (5, 1), (6, 1), (7, 2), (10, 2), (11, 1),
            (12, 1), (13, 2), (16, 2), (17, 1), (18, 0), (18, 1), (19, 1)]
