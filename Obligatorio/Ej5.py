@@ -3,7 +3,6 @@ listaboletos = list()
 for line in f:
     listaboletos.append(line.replace("\n", ""))
 ids = list()
-
 for boleto in listaboletos:
     minF = 0
     maxF = 127
@@ -19,8 +18,6 @@ for boleto in listaboletos:
         if letra == "L":
             maxC = int((minC + maxC) / 2)
     ids.append((maxF * 8) + maxC)
-
-
 ids = sorted(ids, reverse=True)
 print("El ID mas alto es: ", ids[0])
 for i in range(len(ids) - 1):

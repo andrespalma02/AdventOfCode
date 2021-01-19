@@ -1,164 +1,178 @@
-import sys
 from copy import deepcopy
 
 
-def get_side(tile, side):
-    if side == "top":
-        return tile[0]
-    if side == "bottom":
-        return tile[-1][::-1]
-    if side == "right":
-        return "".join([t[-1] for t in tile])
-    if side == "left":
-        return "".join([t[0] for t in tile])[::-1]
+# metodo para retornar un borde especifico de la pieza
+def borde(pieza, borde):
+    if borde == "arriba":
+        return pieza[0]
+    if borde == "abajo":
+        return pieza[-1][::-1]
+    if borde == "derecha":
+        return "".join([t[-1] for t in pieza])
+    if borde == "izquierda":
+        return "".join([t[0] for t in pieza])[::-1]
     raise ValueError
 
 
-def get_sides(tile):
-    return [get_side(tile, "top"), get_side(tile, "right"), get_side(tile, "bottom"), get_side(tile, "left")]
+# metodo para obtener todos los lados de una pieza
+def bordes(pieza):
+    return [borde(pieza, "arriba"), borde(pieza, "derecha"), borde(pieza, "abajo"), borde(pieza, "izquierda")]
 
 
-def rotate(tile):
-    R = len(tile)
-    C = len(tile[0])
-    new = [["x" for _ in range(C)] for _ in range(R)]
+# metodo para rotar una pieza
+def rotar(pieza):
+    R = len(pieza)
+    C = len(pieza[0])
+    aux = [["x" for _ in range(C)] for _ in range(R)]
     for r in range(R):
         for c in range(C):
-            new[r][c] = tile[C - c - 1][r]
-    return ["".join(r) for r in new]
+            aux[r][c] = pieza[C - c - 1][r]
+    return ["".join(r) for r in aux]
 
 
-def flip(tile):
-    return tile[::-1]
+# metodo para voltear una pieza
+def voltear(pieza):
+    return pieza[::-1]
 
 
-def add_fullpic(tile, newline=False):
-    global fullpic
-    if fullpic == []:
-        fullpic = deepcopy(tile)
-    elif newline:
-        for r in tile:
-            fullpic.append(r)
+# metodo para añadir una pieza en su posicion correcta en la imagen
+# sobre la que se buscará el monstruo
+def add_imagen(pieza, flag=False):
+    global imagen
+    if imagen == []:
+        imagen = deepcopy(pieza)
+    elif flag:
+        for r in pieza:
+            imagen.append(r)
     else:
-        R = len(fullpic) - len(tile)
-        for r in range(len(tile)):
-            fullpic[r + R] += tile[r]
+        R = len(imagen) - len(pieza)
+        for r in range(len(pieza)):
+            imagen[r + R] += pieza[r]
 
 
 f = open("input20.txt", "r")
-tiles_raw = f.read().strip().split("\n\n")
-
-tiles = {}
-
-for raw_tile in tiles_raw:
-    lines = raw_tile.strip("\n").split("\n")
-    idn = int(lines[0].split()[1].strip(":"))
-    grid = lines[1:]
-    sides = get_sides(grid)
-    sides += [s[::-1] for s in sides]
-    tiles[idn] = {"grid": grid, "sides": sides, "neighbors": {}}
-
-    for i, tile in tiles.items():
+dato = f.read().strip().split("\n\n")
+piezas = {}
+#se obtienen las piezas y se guardan en un diccionario
+#con los datos de la ultima linea del ciclo for externo
+for raw_pieza in dato:
+    linea = raw_pieza.strip("\n").split("\n")
+    idn = int(linea[0].split()[1].strip(":"))
+    matriz = linea[1:]
+    bordeaux= bordes(matriz)
+    bordeaux+= [s[::-1] for s in bordeaux]
+    piezas[idn] = {"matriz": matriz, "bordes": bordeaux, "adyacente": {}}
+#se realiza la comparacion de cada pieza para encontrar los lados adyacentes
+    for i, pieza in piezas.items():
         if i == idn:
             continue
-        shared = [s for s in tile["sides"] if s in sides[:4]]
+        shared = [s for s in pieza["bordes"] if s in bordeaux[:4]]
         for s in shared:
-            tiles[idn]["neighbors"][i] = s
-            tiles[i]["neighbors"][idn] = s
-
-corners = list(map(int, [t for t in tiles if len(tiles[t]["neighbors"]) == 2]))
+            piezas[idn]["adyacente"][i] = s
+            piezas[i]["adyacente"][idn] = s
+#se determinan que piezas tienen dos piezas adyacentes
+esquinas = list(map(int, [t for t in piezas if len(piezas[t]["adyacente"]) == 2]))
 res = 1
-for c in corners:
+for c in esquinas:
     res *= c
 
-print(f"Part 1: {res}")
+print("Parte 1")
+print("Esquinas: ",esquinas," Producto de las esquinas: ",res)
 
 r, c = 0, 0
-gridmap = {}
-fullpic = []
+mapa = {}
+imagen = []
 
-while not len(gridmap) == len(tiles):
+while not len(mapa) == len(piezas):
+    #al iniciar se esocoge una esquina y se la añade a la imagen
     if r == 0 and c == 0:
-        idn = corners[0]
-        tile = tiles[idn]["grid"]
-        neighbors = list(tiles[idn]["neighbors"].values())
-        neighbors += [n[::-1] for n in neighbors]
+        idn = esquinas[0]
+        pieza = piezas[idn]["matriz"]
+        adyacente = list(piezas[idn]["adyacente"].values())
+        adyacente += [n[::-1] for n in adyacente]
         while True:
-            bottom, right = get_side(tile, "bottom"), get_side(tile, "right")
-            if bottom in neighbors and right in neighbors:
+            abajo, derecha = borde(pieza, "abajo"), borde(pieza, "derecha")
+            if abajo in adyacente and derecha in adyacente:
                 break
-            tile = rotate(tile)
-        gridmap[(r, c)] = idn
-        tiles[idn]["grid"] = tile
-        add_fullpic(tile)
+            pieza = rotar(pieza)
+        mapa[(r, c)] = idn
+        piezas[idn]["matriz"] = pieza
+        add_imagen(pieza)
         c += 1
     elif c == 0:
-        p_idn = gridmap[(r - 1, c)]
-        p_tile = tiles[p_idn]["grid"]
-        side_options = [get_side(p_tile, "bottom"), get_side(p_tile, "bottom")[::-1]]
-        idn = [i for i, s in tiles[p_idn]["neighbors"].items() if s in side_options][0]
-        tile = tiles[idn]["grid"]
-        n_side = get_side(tiles[p_idn]["grid"], "bottom")
+        p_idn = mapa[(r - 1, c)]
+        p_pieza = piezas[p_idn]["matriz"]
+        borde_options = [borde(p_pieza, "abajo"), borde(p_pieza, "abajo")[::-1]]
+        idn = [i for i, s in piezas[p_idn]["adyacente"].items() if s in borde_options][0]
+        pieza = piezas[idn]["matriz"]
+        n_borde = borde(piezas[p_idn]["matriz"], "abajo")
         found = False
+        #por cada pieza existen 8 orientaciones por lo que esta pieza
+        #se puede rotar 4 veces, y en caso de no encajar, se voltea
         for i in range(8):
             if i == 4:
-                tile = flip(tile)
-            if get_side(tile, "top") == n_side[::-1]:
+                pieza = voltear(pieza)
+            if borde(pieza, "arriba") == n_borde[::-1]:
                 found = True
                 break
-            tile = rotate(tile)
+            pieza = rotar(pieza)
         if not found:
             pass
-        gridmap[(r, c)] = idn
-        tiles[idn]["grid"] = tile
-        add_fullpic(tile, newline=True)
+        mapa[(r, c)] = idn
+        piezas[idn]["matriz"] = pieza
+        add_imagen(pieza, flag=True)
         c += 1
     else:
         p_idn = idn
-        p_tile = tiles[p_idn]["grid"]
-        side_options = [get_side(p_tile, "right"), get_side(p_tile, "right")[::-1]]
-        idn = [i for i, s in tiles[p_idn]["neighbors"].items() if s in side_options]
+        p_pieza = piezas[p_idn]["matriz"]
+        borde_options = [borde(p_pieza, "derecha"), borde(p_pieza, "derecha")[::-1]]
+        idn = [i for i, s in piezas[p_idn]["adyacente"].items() if s in borde_options]
         if len(idn) == 1:
             idn = idn[0]
-            tile = tiles[idn]["grid"]
-            n_side = get_side(tiles[p_idn]["grid"], "right")
+            pieza = piezas[idn]["matriz"]
+            n_borde = borde(piezas[p_idn]["matriz"], "derecha")
             found = False
             for i in range(8):
                 if i == 4:
-                    tile = flip(tile)
-                if get_side(tile, "left") == n_side[::-1]:
+                    pieza = voltear(pieza)
+                if borde(pieza, "izquierda") == n_borde[::-1]:
                     found = True
                     break
-                tile = rotate(tile)
+                pieza = rotar(pieza)
             if not found:
                 pass
-            gridmap[(r, c)] = idn
-            tiles[idn]["grid"] = tile
-            add_fullpic(tile)
+            mapa[(r, c)] = idn
+            piezas[idn]["matriz"] = pieza
+            add_imagen(pieza)
             c += 1
         elif len(idn) == 0:
             r, c = r + 1, 0
         else:
             raise Exception
 
+#por cada pieza se la imagen es necesario remover los bordes
 G = []
-for i in range(len(fullpic) // 10):
-    G.extend(fullpic[(10 * i) + 1: (10 * i) + 9])
+for i in range(len(imagen) // 10):
+    G.extend(imagen[(10 * i) + 1: (10 * i) + 9])
 G = ["".join([r[(10 * c) + 1: (10 * c) + 9] for c in range(len(r) // 10)]) for r in G]
 
-monster = [(0, 1), (1, 2), (4, 2), (5, 1), (6, 1), (7, 2), (10, 2), (11, 1),
+#Se determinan puntos que permitiran determinar donde esta el monstruo en la imagen
+
+monstruo = [(0, 1), (1, 2), (4, 2), (5, 1), (6, 1), (7, 2), (10, 2), (11, 1),
            (12, 1), (13, 2), (16, 2), (17, 1), (18, 0), (18, 1), (19, 1)]
 
+#la imagen final debe ser girada y volteada hasta que se encuentre el patron del monstruo
 mon = set()
 for i in range(8):
     if i == 4:
-        G = flip(G)
+        G = voltear(G)
     for r in range(len(G) - 2):
         for c in range(len(G[0]) - 20):
-            if all([G[r + dr][c + dc] == "#" for dc, dr in monster]):
-                for dc, dr in monster:
+            if all([G[r + dr][c + dc] == "#" for dc, dr in monstruo]):
+                for dc, dr in monstruo:
                     mon.add((r + dr, c + dc))
-    G = rotate(G)
+    G = rotar(G)
 
-part2 = len([c for r in G for c in r if c == "#"]) - len(mon)
-print(f"Part 2: {part2}")
+nomon = len([c for r in G for c in r if c == "#"]) - len(mon)
+print("Parte 2")
+print("La cantidad de # en donde no esta el monstruo es: " ,nomon)

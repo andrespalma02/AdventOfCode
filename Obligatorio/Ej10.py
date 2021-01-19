@@ -18,11 +18,6 @@ print((dif1 + 1) * (dif3 + 1))
 
 dic_jolt = {0: 1}
 for jolt in lista_jolts:
-    dic_jolt[jolt] = 0
-    if jolt - 1 in dic_jolt:
-        dic_jolt[jolt] += dic_jolt[jolt - 1]
-    if jolt - 2 in dic_jolt:
-        dic_jolt[jolt] += dic_jolt[jolt - 2]
-    if jolt - 3 in dic_jolt:
-        dic_jolt[jolt] += dic_jolt[jolt - 3]
+    print(dic_jolt.get(jolt - 1, 0))
+    dic_jolt[jolt] = dic_jolt.get(jolt - 1, 0) + dic_jolt.get(jolt - 2, 0) + dic_jolt.get(jolt - 3, 0)
 print(dic_jolt[max(lista_jolts)])
