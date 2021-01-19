@@ -53,16 +53,16 @@ def add_imagen(pieza, flag=False):
 f = open("input20.txt", "r")
 dato = f.read().strip().split("\n\n")
 piezas = {}
-#se obtienen las piezas y se guardan en un diccionario
-#con los datos de la ultima linea del ciclo for externo
+# se obtienen las piezas y se guardan en un diccionario
+# con los datos de la ultima linea del ciclo for externo
 for raw_pieza in dato:
     linea = raw_pieza.strip("\n").split("\n")
     idn = int(linea[0].split()[1].strip(":"))
     matriz = linea[1:]
-    bordeaux= bordes(matriz)
-    bordeaux+= [s[::-1] for s in bordeaux]
+    bordeaux = bordes(matriz)
+    bordeaux += [s[::-1] for s in bordeaux]
     piezas[idn] = {"matriz": matriz, "bordes": bordeaux, "adyacente": {}}
-#se realiza la comparacion de cada pieza para encontrar los lados adyacentes
+    # se realiza la comparacion de cada pieza para encontrar los lados adyacentes
     for i, pieza in piezas.items():
         if i == idn:
             continue
@@ -70,21 +70,21 @@ for raw_pieza in dato:
         for s in shared:
             piezas[idn]["adyacente"][i] = s
             piezas[i]["adyacente"][idn] = s
-#se determinan que piezas tienen dos piezas adyacentes
+# se determinan que piezas tienen dos piezas adyacentes
 esquinas = list(map(int, [t for t in piezas if len(piezas[t]["adyacente"]) == 2]))
 res = 1
 for c in esquinas:
     res *= c
 
 print("Parte 1")
-print("Esquinas: ",esquinas," Producto de las esquinas: ",res)
+print("Esquinas: ", esquinas, " Producto de las esquinas: ", res)
 
 r, c = 0, 0
 mapa = {}
 imagen = []
 
 while not len(mapa) == len(piezas):
-    #al iniciar se esocoge una esquina y se la añade a la imagen
+    # al iniciar se esocoge una esquina y se la añade a la imagen
     if r == 0 and c == 0:
         idn = esquinas[0]
         pieza = piezas[idn]["matriz"]
@@ -107,8 +107,8 @@ while not len(mapa) == len(piezas):
         pieza = piezas[idn]["matriz"]
         n_borde = borde(piezas[p_idn]["matriz"], "abajo")
         found = False
-        #por cada pieza existen 8 orientaciones por lo que esta pieza
-        #se puede rotar 4 veces, y en caso de no encajar, se voltea
+        # por cada pieza existen 8 orientaciones por lo que esta pieza
+        # se puede rotar 4 veces, y en caso de no encajar, se voltea
         for i in range(8):
             if i == 4:
                 pieza = voltear(pieza)
@@ -150,29 +150,29 @@ while not len(mapa) == len(piezas):
         else:
             raise Exception
 
-#por cada pieza se la imagen es necesario remover los bordes
-G = []
+# por cada pieza se la imagen es necesario remover los bordes
+tot = []
 for i in range(len(imagen) // 10):
-    G.extend(imagen[(10 * i) + 1: (10 * i) + 9])
-G = ["".join([r[(10 * c) + 1: (10 * c) + 9] for c in range(len(r) // 10)]) for r in G]
+    tot.extend(imagen[(10 * i) + 1: (10 * i) + 9])
+tot = ["".join([r[(10 * c) + 1: (10 * c) + 9] for c in range(len(r) // 10)]) for r in tot]
 
-#Se determinan puntos que permitiran determinar donde esta el monstruo en la imagen
+# Se determinan puntos que permitiran determinar donde esta el monstruo en la imagen
 
 monstruo = [(0, 1), (1, 2), (4, 2), (5, 1), (6, 1), (7, 2), (10, 2), (11, 1),
-           (12, 1), (13, 2), (16, 2), (17, 1), (18, 0), (18, 1), (19, 1)]
+            (12, 1), (13, 2), (16, 2), (17, 1), (18, 0), (18, 1), (19, 1)]
 
-#la imagen final debe ser girada y volteada hasta que se encuentre el patron del monstruo
-mon = set()
+# la imagen final debe ser girada y volteada hasta que se encuentre el patron del monstruo
+mon = 0
+lala = 0
 for i in range(8):
     if i == 4:
-        G = voltear(G)
-    for r in range(len(G) - 2):
-        for c in range(len(G[0]) - 20):
-            if all([G[r + dr][c + dc] == "#" for dc, dr in monstruo]):
-                for dc, dr in monstruo:
-                    mon.add((r + dr, c + dc))
-    G = rotar(G)
+        tot = voltear(tot)
+    for r in range(len(tot) - 2):
+        for c in range(len(tot[0]) - 20):
+            if all([tot[r + dr][c + dc] == "#" for dc, dr in monstruo]):
+                mon += 1
+    tot = rotar(tot)
 
-nomon = len([c for r in G for c in r if c == "#"]) - len(mon)
+nomon = len([c for r in tot for c in r if c == "#"]) - mon * len(monstruo)
 print("Parte 2")
-print("La cantidad de # en donde no esta el monstruo es: " ,nomon)
+print("La cantidad de # en donde no esta el monstruo es: ", nomon)
