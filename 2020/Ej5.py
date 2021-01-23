@@ -1,4 +1,4 @@
-f = open("input5.txt", "r")
+f = open("../Obligatorio/input5.txt", "r")
 listaboletos = list()
 for line in f:
     listaboletos.append(line.replace("\n", ""))
