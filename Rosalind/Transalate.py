@@ -19,8 +19,7 @@ def translate(s):
     }
     if len(s) < 3:
         return ""
-    else:
-        return dict[s]
+    return dict[s]
 
 s = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGU"
 aux = ""
