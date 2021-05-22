@@ -6,9 +6,8 @@ tot = 0
 def recsum(mass):
     if mass <= 0:
         return 0
-    else:
-        suma = int(int(mass) / 3) - 2
-        print(suma)
+    suma = int(int(mass) / 3) - 2
+    print(suma)
     return mass + recsum(suma)
 
 
