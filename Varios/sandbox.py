@@ -13,14 +13,14 @@ class Vacuum:
     def __init__(self, position):
         self.position = position
         self.tiles = []
-        self.tiles_checked = 0
+        self.tiles_checked = []
 
     def add_tile(self, tile):
         self.tiles.append(tile)
 
     def turn_on(self):
         print("Vacuum started checking...")
-        while not self.tiles_checked == len(self.tiles):
+        while not len(self.tiles_checked) == len(self.tiles):
             print(self.position, ", ", self.tiles[0].state, ", ", self.tiles[1].state)
             self.move()
         print(self.position, ", ", self.tiles[0].state, ", ", self.tiles[1].state)
@@ -30,13 +30,13 @@ class Vacuum:
 
         if self.position == "A":
             self.check(self.tiles[0])
-            if self.tiles_checked != len(self.tiles):
+            if len(self.tiles_checked) != len(self.tiles):
                 print("Moving vacuum to the right")
                 self.position = "B"
 
         else:
             self.check(self.tiles[1])
-            if self.tiles_checked != len(self.tiles):
+            if len(self.tiles_checked) != len(self.tiles):
                 print("Moving vacuum to the left")
                 self.position = "A"
 
@@ -46,7 +46,8 @@ class Vacuum:
             self.suck(tile)
         else:
             print("Tile ", self.position, " clean")
-        self.tiles_checked += 1
+        if not self.tiles.index(tile) in self.tiles_checked:
+            self.tiles_checked.append(self.tiles.index(tile))
 
     def suck(self, tile):
         tile.set_clean()
