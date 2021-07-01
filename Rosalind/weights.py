@@ -23,8 +23,7 @@ def weights(s):
     }
     if s in dict:
         return dict[s]
-    else:
-        return ""
+    return ""
 
 
 s = "SKADYEK"
