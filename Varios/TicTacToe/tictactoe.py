@@ -1,9 +1,9 @@
 """
-Tic Tac Toe Player
+Tic Tac t_oe Player
 """
 
-import math
 import random
+
 import numpy as np
 
 X = 'X'
@@ -11,32 +11,33 @@ O = 'O'
 EMPTY = None
 
 
-def initial_state():
+def initial_stat_e():
     """
-    Returns starting state of the board.
+    Returns starting stat_e of the board.
     """
     return [[EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]]
 
+
 def player(user, board):
     """
     Returns player who has the next turn on a board.
     """
-    contX = 0
-    contO = 0
+    cont_x = 0
+    cont_o = 0
     for i in range(len(board)):
         for j in range(len(board)):
             if board[i][j] == 'X':
-                contX+=1
+                cont_x += 1
             if board[i][j] == 'O':
-                contO+=1
+                cont_o += 1
 
-    if (contX == contO):
+    if cont_x == cont_o:
         return X
-    if (contX > contO):
+    if cont_x > cont_o:
         return O
-    if (contX < contO):
+    if cont_x < cont_o:
         return X
 
 
@@ -44,21 +45,21 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    listActions = []
+    list_actions = []
     for i in range(len(board)):
         for j in range(len(board)):
             if board[i][j] == EMPTY:
-                listActions.append((i,j))
+                list_actions.append((i, j))
 
-    return listActions
+    return list_actions
 
 
-def result(user,board, action):
+def result(user, board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    i,j=action
-    board[i][j]=player(user,board)
+    i, j = action
+    board[i][j] = player(user, board)
     return board
 
 
@@ -74,22 +75,20 @@ def winner(board):
         return None
 
 
-
-def terminal(board):
+def t_erminal(board):
     """
     Returns True if game is over, False otherwise.
     """
     if winner(board):
         return True
     else:
-        contEmp=0
+        cont_emp = 0
         for i in range(len(board)):
             for j in range(len(board)):
-                if (board[i][j] == X or board[i][j] == O):
-                    contEmp+=1
-        if (contEmp == 9 ):
+                if board[i][j] == X or board[i][j] == O:
+                    cont_emp += 1
+        if cont_emp == 9:
             return True
-
 
     return False
 
@@ -99,82 +98,74 @@ def utility(board):
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
     end = False
-    ficha = ['X','O']
-    value = [1,-1]
-    cont=0
-    while (cont<2):
-        contD1 = 0
-        contD2 = 0
-        contEmp = 0
-        contF = 0
-        contC = 0
-        i = 0
+    ficha = ['X', 'O']
+    value = [1, -1]
+    cont = 0
+    while cont < 2:
+        cont_d1 = 0
+        cont_d2 = 0
+        cont_emp = 0
         for i in range(len(board)):
-            contC = 0
-            contF = 0
-            j = 0
+            cont_c = 0
+            cont_f = 0
             for j in range(len(board)):
                 if (i == j) and ((board[i][j]) == ficha[cont]):
-                    contD1+=1
-                if ((i + j) == 2 and (board[i][j]) == ficha[cont]):
-                    contD2+=1
-                if (board[i][j] == X or board[i][j] == O):
-                    contEmp+=1
-                if (board[i][j] == ficha[cont]):
-                    contF+=1
-                    if (contF == 3):
+                    cont_d1 += 1
+                if (i + j) == 2 and (board[i][j]) == ficha[cont]:
+                    cont_d2 += 1
+                if board[i][j] == X or board[i][j] == O:
+                    cont_emp += 1
+                if board[i][j] == ficha[cont]:
+                    cont_f += 1
+                    if cont_f == 3:
                         end = value[cont]
-                if (board[j][i] == ficha[cont]):
-                    contC+=1
-                    if (contC == 3):
+                if board[j][i] == ficha[cont]:
+                    cont_c += 1
+                    if cont_c == 3:
                         end = value[cont]
 
-        if (contD1 == 3):
+        if cont_d1 == 3:
             end = value[cont]
-        if (contD2 == 3):
+        if cont_d2 == 3:
             end = value[cont]
-        if (contEmp == 9 and end == False):
+        if cont_emp == 9 and not end:
             end = 0
-        cont+=1
+        cont += 1
     if not end:
         end = 0
 
     return end
 
 
-
-def minimax(user,board):
+def minimax(user, board):
     """
     Returns the optimal action for the current player on the board.
     """
-    optimalAction = []
+    optimal_action = []
     for action in actions(board):
         aux = np.copy(board)
         aux[action[0]][action[1]] = player(user, board)
         pierde = False
         if winner(aux) == user:
-                return action
+            return action
         else:
             for action1 in actions(aux):
-               aux1 = np.copy(aux)
-               aux1[action1[0]][action1[1]] = player(user, aux)
-               if  winner(aux1) == player(user,aux):
-                   pierde = True
-                   break
-               if pierde == False:
-                  for action2 in actions(aux1):
-                      aux2 = np.copy(aux1)
-                      aux2[action2[0]][action2[1]] = player(user, aux2)
-                      if  winner(aux2) == player(user,aux2):
-                        pierde = True
+                aux1 = np.copy(aux)
+                aux1[action1[0]][action1[1]] = player(user, aux)
+                if winner(aux1) == player(user, aux):
+                    pierde = True
+                    break
+                if not pierde:
+                    for action2 in actions(aux1):
+                        aux2 = np.copy(aux1)
+                        aux2[action2[0]][action2[1]] = player(user, aux2)
+                        if winner(aux2) == player(user, aux2):
+                            pierde = True
 
+        if not pierde:
+            optimal_action.append(action)
 
-        if pierde == False:
-            optimalAction.append(action)
+    if len(optimal_action) > 0:
+        return optimal_action[random.randint(0, len(optimal_action) - 1)]
 
-
-    if len(optimalAction) > 0:
-        return optimalAction[random.randint(0, len(optimalAction) -1)]
-
-    return actions(board)[random.randint(0, len(actions(board)) -1)]
-
+    return actions(board)[random.randint(0, len(actions(board)) - 1)]
