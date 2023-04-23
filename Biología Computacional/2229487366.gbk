@@ -1,0 +1,135 @@
+LOCUS       NM_001405427            1403 bp    mRNA    linear   PLN 01-JAN-2023
+DEFINITION  Coffea arabica caffeine synthase 1-like (LOC113688632), mRNA.
+ACCESSION   NM_001405427
+VERSION     NM_001405427.1
+KEYWORDS    RefSeq.
+SOURCE      Coffea arabica (coffee)
+  ORGANISM  Coffea arabica
+            Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta;
+            Spermatophyta; Magnoliopsida; eudicotyledons; Gunneridae;
+            Pentapetalae; asterids; lamiids; Gentianales; Rubiaceae; Ixoroideae;
+            Gardenieae complex; Bertiereae - Coffeeae clade; Coffeeae; Coffea.
+REFERENCE   1  (bases 1 to 1403)
+  AUTHORS   Vidal RO, Mondego JM, Pot D, Ambrosio AB, Andrade AC, Pereira LF,
+            Colombo CA, Vieira LG, Carazzolle MF and Pereira GA.
+  TITLE     A high-throughput data mining of single nucleotide polymorphisms in
+            Coffea species expressed sequence tags suggests differential
+            homeologous gene expression in the allotetraploid Coffea arabica
+  JOURNAL   Plant Physiol 154 (3), 1053-1066 (2010)
+   PUBMED   20864545
+REFERENCE   2  (bases 1 to 1403)
+  AUTHORS   Mizuno K, Okuda A, Kato M, Yoneyama N, Tanaka H, Ashihara H and
+            Fujimura T.
+  TITLE     Isolation of a new dual-functional caffeine synthase gene encoding
+            an enzyme for the conversion of 7-methylxanthine to caffeine from
+            coffee (Coffea arabica L.)
+  JOURNAL   FEBS Lett 534 (1-3), 75-81 (2003)
+   PUBMED   12527364
+COMMENT     ##Evidence-Data-START##
+            Transcript exon combination :: AB086414.1, KJ577793.1 [ECO:0000332]
+            RNAseq introns :: single sample supports all introns SAMEA104198428,
+            SAMEA2377371 [ECO:0000348]
+            ##Evidence-Data-END##
+            VALIDATED REFSEQ: This record has undergone validation or
+            preliminary review. The reference sequence was derived from
+            GR993866.1, GT711210.1, AB086414.1 and GT682597.1.
+            On Apr 22, 2022 this sequence version replaced XM_027206542.1.
+FEATURES             Location/Qualifiers
+     source          1..1403
+                     /organism="Coffea arabica"
+                     /mol_type="mRNA"
+                     /db_xref="taxon:13443"
+                     /chromosome="1c"
+                     /map="1c"
+     gene            1..1403
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /note="caffeine synthase 1-like"
+                     /db_xref="GeneID:113688632"
+     exon            1..134
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /inference="alignment:Splign:2.1.0"
+     misc_feature    57..59
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /note="upstream in-frame stop codon"
+     CDS             60..1214
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /EC_number="2.1.1.160"
+                     /note="3,7-dimethylxanthine methyltransferase 2; caffeine
+                     synthase 1; caffeine synthase 6"
+                     /codon_start=1
+                     /product="3,7-dimethylxanthine N-methyltransferase 2"
+                     /protein_id="NP_001392356.1"
+                     /db_xref="GeneID:113688632"
+                     /translation="MELQEVLHMNGGEGDTSYAKNSSYNLFLIRVKPVLEQCIQELLRA
+                     NLPNINKCFKVGDLGCASGPNTFSTVRDIVQSIDKVGQEKKNELERPTIQIFLNDLFQN
+                     DFNSVFKLLPSFYRNLEKENGRKIGSCLIGAMPGSFYSRLFPEESMHFLHSCYCLHWLS
+                     QVPSGLVTELGISANKGCIYSSKASGPPIKKAYLDQFTKDFTTFLRIHSEELISRGRML
+                     LTFICKEDEFDHPNSMDLLEMSINDLVIEGHLEEEKLDSFNVPIYAPSTEEVKRIVEEE
+                     GSFEILYLETFYAPYDAGFSIDDDYQGRSHSPVSCDEHARAAHVASVVRSIYEPILASH
+                     FGEAILPDLSHRIAKNAAKVLRSGKGFYDSVIISLAKKPEKADM"
+     misc_feature    519..521
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /note="Involved in substrate discrimination.
+                     /evidence=ECO:0000250|UniProtKB:Q9FZN8; propagated from
+                     UniProtKB/Swiss-Prot (Q8H0D3.1); other site"
+     misc_feature    855..857
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /note="Involved in substrate discrimination.
+                     /evidence=ECO:0000250|UniProtKB:Q9FZN8; propagated from
+                     UniProtKB/Swiss-Prot (Q8H0D3.1); other site"
+     misc_feature    1041..1043
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /note="Involved in substrate discrimination.
+                     /evidence=ECO:0000250|UniProtKB:Q9FZN8; propagated from
+                     UniProtKB/Swiss-Prot (Q8H0D3.1); other site"
+     misc_feature    1086..1088
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /note="Involved in substrate discrimination.
+                     /evidence=ECO:0000250|UniProtKB:Q9FZN8; propagated from
+                     UniProtKB/Swiss-Prot (Q8H0D3.1); other site"
+     exon            135..551
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /inference="alignment:Splign:2.1.0"
+     exon            552..812
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /inference="alignment:Splign:2.1.0"
+     exon            813..1403
+                     /gene="LOC113688632"
+                     /gene_synonym="CaDXMT2; CCS1; CS6; CtCS6; DXMT2"
+                     /inference="alignment:Splign:2.1.0"
+ORIGIN
+        1 attaacagat accttcttta gcagtcccaa ttcgatttat gcacaagtcc tgcgtatgaa
+       61 tggagctcca agaagtcctg catatgaatg gaggcgaagg cgatacaagc tacgccaaga
+      121 actcatccta caatctgttt ctcatcaggg tgaaacctgt ccttgaacaa tgcatacaag
+      181 aattgttgcg ggccaacttg cccaacatca acaagtgctt taaagttggg gatttgggat
+      241 gcgcttctgg accaaacaca ttttcaacag ttcgggacat tgtacaaagt attgacaaag
+      301 ttggccagga aaagaagaat gaattagaac gtcccaccat tcagattttt ctgaatgatc
+      361 ttttccaaaa tgatttcaat tcggttttca agttgctgcc aagcttctac cgcaatcttg
+      421 agaaagaaaa tggacgcaaa ataggatcgt gcctgatagg cgcaatgccc ggctctttct
+      481 acagcagact cttccccgag gagtccatgc attttttaca ctcttgttac tgtttgcatt
+      541 ggttatctca ggttcccagc ggtttggtga ctgaattggg gatcagtgcg aacaaagggt
+      601 gcatttactc ttccaaagca agtggtccgc ccatcaagaa ggcatatttg gatcaattta
+      661 cgaaagattt taccacattt cttaggattc attcggaaga gttgatttca cgtggccgaa
+      721 tgctccttac tttcatttgt aaagaagatg aattcgacca cccgaattcc atggacttgc
+      781 ttgagatgtc aataaacgac ttggttattg agggacatct ggaggaagaa aaattggata
+      841 gcttcaatgt tccaatctat gcaccttcaa cagaagaagt aaagcgcata gttgaggagg
+      901 aaggttcttt tgaaatttta tacctggaga ctttttatgc cccttatgat gctggcttct
+      961 ctattgatga tgattaccaa ggaagatccc attcccctgt atcctgcgat gaacatgcta
+     1021 gagcagcgca tgtggcatct gtcgttagat caatttacga acccatcctc gcgagtcatt
+     1081 ttggagaagc tattttacct gacttatccc acaggattgc gaagaatgca gcaaaggttc
+     1141 tccgctcggg caaaggcttc tatgatagtg ttatcatttc tctcgccaaa aagccggaga
+     1201 aggcagacat gtaaaagttt gtttttagtt ggtttttgtg ttgtggtttg tttttagata
+     1261 tggggaaagg atttaatgcg gttgggggtc catcgggtat tgtacttttt atattatttg
+     1321 gtgtatgatt atattgtatt attattttgt atttgtaata aaagtggcgt acaagaataa
+     1381 gatgtttgac atatatttaa tac
+//
