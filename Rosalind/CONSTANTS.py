@@ -16,3 +16,20 @@ CODON_TABLE = {
     'UGA': 'Stop', 'CGA': 'R', 'AGA': 'R', 'GGA': 'G',
     'UGG': 'W', 'CGG': 'R', 'AGG': 'R', 'GGG': 'G',
 }
+
+AMINOACID_TABLE = {
+    'F': 'Phe', 'L': 'Leu', 'I': 'Ile', 'M': 'Met',
+    'V': 'Val', 'S': 'Ser', 'P': 'Pro', 'T': 'Thr',
+    'A': 'Ala', 'Y': 'Tyr', 'H': 'His', 'N': 'Asn',
+    'D': 'Asp', 'Q': 'Gln', 'K': 'Lys', 'E': 'Glu',
+    'C': 'Cys', 'W': 'Trp', 'R': 'Arg', 'G': 'Gly',
+    'Stop': 'Stop',
+}
+
+COMPLEMENTARY_DNA_BASES = {
+    'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C',
+}
+
+COMPLEMENTARY_RNA_BASES = {
+    'A': 'U', 'U': 'A', 'C': 'G', 'G': 'C',
+}
